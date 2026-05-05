@@ -1,0 +1,54 @@
+{
+  "clients": [
+    {
+      "id": "C001",
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "email": "jean.dupont@example.com",
+      "telephone": "+33 6 12 34 56 78",
+      "entreprise": "Dupont & Associés",
+      "statut": "actif",
+      "dateCreation": "2023-01-15"
+    },
+    {
+      "id": "C002",
+      "nom": "Martin",
+      "prenom": "Sophie",
+      "email": "sophie.martin@techcorp.fr",
+      "telephone": "+33 7 98 76 54 32",
+      "entreprise": "TechCorp France",
+      "statut": "actif",
+      "dateCreation": "2023-03-22"
+    },
+    {
+      "id": "C003",
+      "nom": "Bernard",
+      "prenom": "Luc",
+      "email": "luc.bernard@gmail.com",
+      "telephone": "+33 6 55 44 33 22",
+      "entreprise": null,
+      "statut": "inactif",
+      "dateCreation": "2022-11-08"
+    },
+    {
+      "id": "C004",
+      "nom": "Leroy",
+      "prenom": "Marie",
+      "email": "marie.leroy@innovate.io",
+      "telephone": "+33 1 23 45 67 89",
+      "entreprise": "Innovate Solutions",
+      "statut": "actif",
+      "dateCreation": "2024-02-10"
+    },
+    {
+      "id": "C005",
+      "nom": "Moreau",
+      "prenom": "Pierre",
+      "email": "p.moreau@moreau-btp.fr",
+      "telephone": "+33 6 77 88 99 00",
+      "entreprise": "Moreau BTP",
+      "statut": "prospect",
+      "dateCreation": "2024-06-01"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "info": {
+    "name": "CRM API Simulator",
+    "_postman_id": "crm-api-simulator",
+    "description": "Collection pour tester l'API CRM simulée — vérification d'existence de clients",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "📋 Liste tous les clients",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients"]
+        },
+        "description": "Retourne la liste complète des clients présents dans le fichier JSON."
+      }
+    },
+    {
+      "name": "✅ Check — client existant (par email)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check?email=jean.dupont@example.com",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"],
+          "query": [
+            { "key": "email", "value": "jean.dupont@example.com" }
+          ]
+        },
+        "description": "Vérifie qu'un client existe par son email. Retourne 200 + les infos client si trouvé."
+      }
+    },
+    {
+      "name": "❌ Check — client inexistant (par email)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check?email=inconnu@nowhere.com",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"],
+          "query": [
+            { "key": "email", "value": "inconnu@nowhere.com" }
+          ]
+        },
+        "description": "Teste le cas où le client n'existe pas. Retourne 404 avec existe: false."
+      }
+    },
+    {
+      "name": "✅ Check — par ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check?id=C003",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"],
+          "query": [
+            { "key": "id", "value": "C003" }
+          ]
+        },
+        "description": "Vérifie l'existence d'un client par son identifiant unique."
+      }
+    },
+    {
+      "name": "✅ Check — par téléphone",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check?telephone=+33798765432",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"],
+          "query": [
+            { "key": "telephone", "value": "+33798765432" }
+          ]
+        },
+        "description": "Vérifie l'existence d'un client par son numéro de téléphone (espaces ignorés)."
+      }
+    },
+    {
+      "name": "✅ Check — par nom + prénom",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check?nom=Leroy&prenom=Marie",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"],
+          "query": [
+            { "key": "nom", "value": "Leroy" },
+            { "key": "prenom", "value": "Marie" }
+          ]
+        },
+        "description": "Vérifie l'existence d'un client par son nom et prénom."
+      }
+    },
+    {
+      "name": "🔍 Récupérer un client par ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/C002",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "C002"]
+        },
+        "description": "Récupère les détails complets d'un client via son ID dans l'URL."
+      }
+    },
+    {
+      "name": "⚠️ Check — paramètre manquant",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/clients/check",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clients", "check"]
+        },
+        "description": "Teste la réponse 400 lorsqu'aucun paramètre de recherche n'est fourni."
+      }
+    }
+  ]
+}
