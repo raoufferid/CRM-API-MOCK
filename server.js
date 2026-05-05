@@ -6,11 +6,17 @@ const app = express();
 app.use(express.json());
 
 const CLIENTS_FILE = path.join(__dirname, "clients.json");
+const COMMANDES_FILE = path.join(__dirname, "commandes.json");
 
 // Lecture du fichier JSON
 function loadClients() {
   const raw = fs.readFileSync(CLIENTS_FILE, "utf-8");
   return JSON.parse(raw).clients;
+}
+
+function loadCommandes() {
+  const raw = fs.readFileSync(COMMANDES_FILE, "utf-8");
+  return JSON.parse(raw).commandes;
 }
 
 // ──────────────────────────────────────────────
@@ -100,7 +106,11 @@ app.get("/api/clients/:id", (req, res) => {
     });
   }
 
-  res.json({ success: true, client });
+  const commandes = loadCommandes().filter(
+    (commande) => commande.clientId.toLowerCase() === client.id.toLowerCase()
+  );
+
+  res.json({ success: true, client, commandes });
 });
 
 // ──────────────────────────────────────────────
@@ -116,4 +126,5 @@ app.listen(PORT, () => {
   console.log(`  GET  /api/clients/check?telephone=...     → vérification par téléphone`);
   console.log(`  GET  /api/clients/check?id=...            → vérification par ID`);
   console.log(`  GET  /api/clients/check?nom=...&prenom=...→ vérification par nom\n`);
+  console.log(`  GET  /api/clients/:id                     → client + commandes associées`);
 });

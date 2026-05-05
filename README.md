@@ -124,3 +124,33 @@ GET /api/clients/C002
 ```
 
 Le fichier est relu à chaque requête — **aucun redémarrage nécessaire**.
+
+---
+
+## 📁 Ajouter des commandes
+
+Les commandes fictives sont stockées dans `commandes.json`.
+
+Chaque commande contient au minimum :
+
+- `id` : identifiant de la commande
+- `clientId` : ID du client associé
+- `dateCommande` : date de la commande
+- `statut` : état de traitement
+- `montantHT`, `tva`, `montantTTC` : montants
+- `articles` : détail des lignes de commande
+
+Exemple :
+
+```json
+{
+  "commandes": [
+    {
+      "id": "CMD001",
+      "clientId": "C001",
+      "dateCommande": "2024-09-12",
+      "statut": "livree"
+    }
+  ]
+}
+```
