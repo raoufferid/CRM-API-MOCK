@@ -1,0 +1,93 @@
+{
+  "version": "1.0",
+  "domain": "crm-api-mock",
+  "refundPolicy": {
+    "currency": "EUR",
+    "taxHandling": "refund_including_tva",
+    "defaultRefundRate": 1,
+    "cutoffTime": "23:59:59",
+    "notes": [
+      "Une commande au statut 'brouillon' n'est pas remboursable car elle n'est pas facturée.",
+      "Une commande au statut 'annulee' est remboursable selon les conditions détaillées ci-dessous.",
+      "Une commande au statut 'livree' est remboursable uniquement pour les services non consommés ou en cas de geste commercial.",
+      "Une commande au statut 'en_cours' n'est pas remboursable tant qu'elle n'a pas été annulée ou clôturée."
+    ]
+  },
+  "rules": [
+    {
+      "id": "REF-001",
+      "name": "Annulation avant traitement",
+      "appliesToStatuses": ["annulee"],
+      "decision": "eligible",
+      "refundRate": 1,
+      "description": "Remboursement total du montant TTC si la commande a été annulée avant exécution."
+    },
+    {
+      "id": "REF-002",
+      "name": "Commande en brouillon",
+      "appliesToStatuses": ["brouillon"],
+      "decision": "not_applicable",
+      "refundRate": 0,
+      "description": "Aucun remboursement n'est nécessaire pour une commande en brouillon."
+    },
+    {
+      "id": "REF-003",
+      "name": "Commande en cours",
+      "appliesToStatuses": ["en_cours"],
+      "decision": "blocked",
+      "refundRate": 0,
+      "description": "Remboursement refusé tant que la commande est active."
+    },
+    {
+      "id": "REF-004",
+      "name": "Commande livrée",
+      "appliesToStatuses": ["livree"],
+      "decision": "partial_or_manual_review",
+      "refundRate": 0.5,
+      "description": "Remboursement partiel possible uniquement sur validation manuelle, selon la nature des prestations."
+    },
+    {
+      "id": "REF-005",
+      "name": "Produits non remboursables",
+      "appliesToArticleReferences": ["DEV-CUSTOM", "AUDIT-001", "CONS-1J", "SERVICE-CRM"],
+      "decision": "blocked",
+      "refundRate": 0,
+      "description": "Les prestations de service, conseil, audit, paramétrage et développement spécifique ne sont pas remboursables après démarrage."
+    },
+    {
+      "id": "REF-006",
+      "name": "Services remboursables à titre exceptionnel",
+      "appliesToArticleReferences": ["LIC-STD", "SUP-ONB", "SUP-PREMIUM", "MAINT-12", "FORM-TEAM", "INTEG-API"],
+      "decision": "eligible_with_conditions",
+      "refundRate": 1,
+      "description": "Remboursement possible si la prestation n'a pas commencé ou en cas d'accord commercial."
+    }
+  ],
+  "workflow": {
+    "steps": [
+      "Vérifier le statut de la commande.",
+      "Vérifier si un article non remboursable est présent.",
+      "Appliquer le taux de remboursement autorisé.",
+      "Exiger une validation manuelle pour les remboursements partiels."
+    ]
+  },
+  "statuses": {
+    "brouillon": {
+      "refundAllowed": false,
+      "reason": "Commande non facturée"
+    },
+    "en_cours": {
+      "refundAllowed": false,
+      "reason": "Commande en exécution"
+    },
+    "annulee": {
+      "refundAllowed": true,
+      "reason": "Commande annulée"
+    },
+    "livree": {
+      "refundAllowed": true,
+      "refundMode": "manual_review",
+      "reason": "Commande livrée, remboursement soumis à contrôle"
+    }
+  }
+}

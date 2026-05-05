@@ -7,6 +7,7 @@ app.use(express.json());
 
 const CLIENTS_FILE = path.join(__dirname, "clients.json");
 const COMMANDES_FILE = path.join(__dirname, "commandes.json");
+const RULES_FILE = path.join(__dirname, "rules.json");
 
 // Lecture du fichier JSON
 function loadClients() {
@@ -17,6 +18,11 @@ function loadClients() {
 function loadCommandes() {
   const raw = fs.readFileSync(COMMANDES_FILE, "utf-8");
   return JSON.parse(raw).commandes;
+}
+
+function loadRules() {
+  const raw = fs.readFileSync(RULES_FILE, "utf-8");
+  return JSON.parse(raw);
 }
 
 // ──────────────────────────────────────────────
@@ -114,6 +120,18 @@ app.get("/api/clients/:id", (req, res) => {
 });
 
 // ──────────────────────────────────────────────
+// GET /api/rules
+// Récupère toutes les règles métier
+// ──────────────────────────────────────────────
+app.get("/api/rules", (req, res) => {
+  const rules = loadRules();
+  res.json({
+    success: true,
+    rules,
+  });
+});
+
+// ──────────────────────────────────────────────
 // Démarrage du serveur
 // ──────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
@@ -127,4 +145,5 @@ app.listen(PORT, () => {
   console.log(`  GET  /api/clients/check?id=...            → vérification par ID`);
   console.log(`  GET  /api/clients/check?nom=...&prenom=...→ vérification par nom\n`);
   console.log(`  GET  /api/clients/:id                     → client + commandes associées`);
+  console.log(`  GET  /api/rules                           → règles métier de remboursement`);
 });

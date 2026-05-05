@@ -93,6 +93,26 @@ GET /api/clients/C002
 
 ---
 
+### `GET /api/rules`
+Retourne l'ensemble des règles métier de remboursement définies dans `rules.json`.
+
+**Réponse 200 :**
+```json
+{
+  "success": true,
+  "rules": {
+    "version": "1.0",
+    "domain": "crm-api-mock",
+    "refundPolicy": { ... },
+    "rules": [ ... ],
+    "workflow": { ... },
+    "statuses": { ... }
+  }
+}
+```
+
+---
+
 ## 📬 Import dans Postman
 
 1. Ouvrir Postman
@@ -152,5 +172,28 @@ Exemple :
       "statut": "livree"
     }
   ]
+}
+```
+
+---
+
+## 📁 Règles métiers
+
+Les règles de remboursement sont stockées dans `rules.json`.
+
+Ce fichier centralise :
+
+- les statuts de commande et leur éligibilité au remboursement
+- les règles par article
+- le taux de remboursement par défaut
+- les étapes de validation manuelle
+
+Exemple :
+
+```json
+{
+  "refundPolicy": {
+    "defaultRefundRate": 1
+  }
 }
 ```
