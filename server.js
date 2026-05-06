@@ -112,11 +112,28 @@ app.get("/api/clients/:id", (req, res) => {
     });
   }
 
-  const commandes = loadCommandes().filter(
-    (commande) => commande.clientId.toLowerCase() === client.id.toLowerCase()
+  res.json({ success: true, client });
+});
+
+// ──────────────────────────────────────────────
+// GET /api/order/:order_id
+// Récupère une commande par son ID
+// ──────────────────────────────────────────────
+app.get("/api/order/:order_id", (req, res) => {
+  const commandes = loadCommandes();
+  const order = commandes.find(
+    (commande) =>
+      commande.id.toLowerCase() === req.params.order_id.toLowerCase()
   );
 
-  res.json({ success: true, client, commandes });
+  if (!order) {
+    return res.status(404).json({
+      success: false,
+      message: `Commande avec l'ID '${req.params.order_id}' introuvable.`,
+    });
+  }
+
+  res.json({ success: true, order });
 });
 
 // ──────────────────────────────────────────────
@@ -144,6 +161,7 @@ app.listen(PORT, () => {
   console.log(`  GET  /api/clients/check?telephone=...     → vérification par téléphone`);
   console.log(`  GET  /api/clients/check?id=...            → vérification par ID`);
   console.log(`  GET  /api/clients/check?nom=...&prenom=...→ vérification par nom\n`);
-  console.log(`  GET  /api/clients/:id                     → client + commandes associées`);
+  console.log(`  GET  /api/clients/:id                     → client par ID`);
+  console.log(`  GET  /api/order/:order_id                 → commande par ID`);
   console.log(`  GET  /api/rules                           → règles métier de remboursement`);
 });

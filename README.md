@@ -91,6 +91,31 @@ Récupère un client directement par son ID dans l'URL.
 GET /api/clients/C002
 ```
 
+**Réponse 200 :**
+```json
+{
+  "success": true,
+  "client": { ... }
+}
+```
+
+---
+
+### `GET /api/order/:order_id`
+Récupère une commande directement par son identifiant dans l'URL.
+
+```
+GET /api/order/CMD001
+```
+
+**Réponse 200 :**
+```json
+{
+  "success": true,
+  "order": { ... }
+}
+```
+
 ---
 
 ### `GET /api/rules`

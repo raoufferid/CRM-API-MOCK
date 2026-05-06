@@ -121,6 +121,20 @@
       }
     },
     {
+      "name": "📦 Récupérer une commande par ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/order/CMD001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "CMD001"]
+        },
+        "description": "Récupère une commande précise via son identifiant dans l'URL."
+      }
+    },
+    {
       "name": "⚠️ Check — paramètre manquant",
       "request": {
         "method": "GET",
