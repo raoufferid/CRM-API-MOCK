@@ -20,6 +20,14 @@ function loadCommandes() {
   return JSON.parse(raw).commandes;
 }
 
+function saveCommandes(commandes) {
+  fs.writeFileSync(
+    COMMANDES_FILE,
+    JSON.stringify({ commandes }, null, 2) + "\n",
+    "utf-8"
+  );
+}
+
 function loadRules() {
   const raw = fs.readFileSync(RULES_FILE, "utf-8");
   return JSON.parse(raw);
@@ -137,6 +145,53 @@ app.get("/api/order/:order_id", (req, res) => {
 });
 
 // ──────────────────────────────────────────────
+// PATCH /api/order/:order_id/status
+// Met à jour le statut d'une commande
+// ──────────────────────────────────────────────
+app.patch("/api/order/:order_id/status", (req, res) => {
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({
+      success: false,
+      message: "Le champ 'status' est obligatoire.",
+    });
+  }
+
+  const rules = loadRules();
+  const allowedStatuses = Object.keys(rules.statuses || {});
+
+  if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({
+      success: false,
+      message: `Statut invalide. Valeurs autorisées : ${allowedStatuses.join(", ")}.`,
+    });
+  }
+
+  const commandes = loadCommandes();
+  const index = commandes.findIndex(
+    (commande) =>
+      commande.id.toLowerCase() === req.params.order_id.toLowerCase()
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: `Commande avec l'ID '${req.params.order_id}' introuvable.`,
+    });
+  }
+
+  commandes[index].statut = status;
+  saveCommandes(commandes);
+
+  res.json({
+    success: true,
+    message: "Statut de la commande mis à jour.",
+    order: commandes[index],
+  });
+});
+
+// ──────────────────────────────────────────────
 // GET /api/rules
 // Récupère toutes les règles métier
 // ──────────────────────────────────────────────
@@ -163,5 +218,6 @@ app.listen(PORT, () => {
   console.log(`  GET  /api/clients/check?nom=...&prenom=...→ vérification par nom\n`);
   console.log(`  GET  /api/clients/:id                     → client par ID`);
   console.log(`  GET  /api/order/:order_id                 → commande par ID`);
+  console.log(`  PATCH /api/order/:order_id/status         → mise à jour du statut`);
   console.log(`  GET  /api/rules                           → règles métier de remboursement`);
 });

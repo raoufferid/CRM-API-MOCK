@@ -118,6 +118,33 @@ GET /api/order/CMD001
 
 ---
 
+### `PATCH /api/order/:order_id/status`
+Met à jour le statut d'une commande existante.
+
+**Corps de requête :**
+```json
+{
+  "status": "annulee"
+}
+```
+
+**Statuts autorisés :**
+- `brouillon`
+- `en_cours`
+- `annulee`
+- `livree`
+
+**Réponse 200 :**
+```json
+{
+  "success": true,
+  "message": "Statut de la commande mis à jour.",
+  "order": { ... }
+}
+```
+
+---
+
 ### `GET /api/rules`
 Retourne l'ensemble des règles métier de remboursement définies dans `rules.json`.
 

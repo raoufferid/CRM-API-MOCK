@@ -135,6 +135,27 @@
       }
     },
     {
+      "name": "✏️ Mettre à jour le statut d'une commande",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"annulee\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/order/CMD001/status",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "CMD001", "status"]
+        },
+        "description": "Met à jour le statut d'une commande existante. Le champ status est obligatoire."
+      }
+    },
+    {
       "name": "⚠️ Check — paramètre manquant",
       "request": {
         "method": "GET",
