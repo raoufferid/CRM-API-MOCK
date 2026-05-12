@@ -143,15 +143,15 @@
       "clientId": "C002",
       "dateCommande": "2024-01-17",
       "statut": "annulee",
-      "montantHT": 1740,
+      "montantHT": 1440,
       "tva": 348,
-      "montantTTC": 2088,
+      "montantTTC": 1788,
       "articles": [
         {
           "reference": "CONS-1J",
           "designation": "Consulting journee",
           "quantite": 4,
-          "prixUnitaire": 360
+          "prixUnitaire": 260
         },
         {
           "reference": "SUP-PREMIUM",
