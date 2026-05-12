@@ -4,10 +4,10 @@
       "id": "CMD001",
       "clientId": "C001",
       "dateCommande": "2024-01-05",
-      "statut": "en_cours",
-      "montantHT": 2260,
+      "statut": "livree",
+      "montantHT": 1260,
       "tva": 452,
-      "montantTTC": 2712,
+      "montantTTC": 1712,
       "articles": [
         {
           "reference": "LIC-STD",
@@ -27,7 +27,7 @@
       "id": "CMD002",
       "clientId": "C002",
       "dateCommande": "2024-01-07",
-      "statut": "brouillon",
+      "statut": "livree",
       "montantHT": 435,
       "tva": 887,
       "montantTTC": 1322,
@@ -57,9 +57,9 @@
       "clientId": "C003",
       "dateCommande": "2024-01-09",
       "statut": "annulee",
-      "montantHT": 2320,
+      "montantHT": 1320,
       "tva": 464,
-      "montantTTC": 2784,
+      "montantTTC": 1784,
       "articles": [
         {
           "reference": "AUDIT-001",
@@ -97,9 +97,9 @@
       "clientId": "C005",
       "dateCommande": "2024-01-13",
       "statut": "en_cours",
-      "montantHT": 3210,
+      "montantHT": 1210,
       "tva": 642,
-      "montantTTC": 3852,
+      "montantTTC": 1852,
       "articles": [
         {
           "reference": "DEV-CUSTOM",
@@ -195,9 +195,9 @@
       "clientId": "C004",
       "dateCommande": "2024-01-21",
       "statut": "en_cours",
-      "montantHT": 1720,
+      "montantHT": 1620,
       "tva": 344,
-      "montantTTC": 2064,
+      "montantTTC": 1964,
       "articles": [
         {
           "reference": "INTEG-API",
@@ -212,9 +212,9 @@
       "clientId": "C005",
       "dateCommande": "2024-01-23",
       "statut": "brouillon",
-      "montantHT": 4430,
+      "montantHT": 2430,
       "tva": 886,
-      "montantTTC": 5316,
+      "montantTTC": 3316,
       "articles": [
         {
           "reference": "SERVICE-CRM",
